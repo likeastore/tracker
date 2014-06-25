@@ -13,7 +13,8 @@ describe('tracker.js', function () {
 		beforeEach(function () {
 			data = {
 				user: 'a@a.com',
-				url: 'http://example.com'
+				url: 'http://example.com',
+				query: 'my simple query'
 			};
 
 			payload = new Buffer(JSON.stringify(data)).toString('base64');
@@ -37,6 +38,6 @@ describe('tracker.js', function () {
 	});
 
 	describe('reports', function () {
-
+		// TODO:
 	});
 });

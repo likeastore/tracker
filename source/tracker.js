@@ -21,7 +21,7 @@ function tracker(app) {
 		var json = new Buffer(req.query.d, 'base64').toString();
 		var link = JSON.parse(json);
 
-		link = _.extend(link, {date: moment()});
+		link = _.extend(link, {date: moment().utc().toDate()});
 
 		db.links.save(link, function (err) {
 			if (err) {
