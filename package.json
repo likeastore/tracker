@@ -6,7 +6,10 @@
   "dependencies": {
     "express": "~4.4.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "~1.20.1",
+    "expect.js": "~0.3.1"
+  },
   "scripts": {
     "test": "node test/runner.js"
   },
