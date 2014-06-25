@@ -1,8 +1,9 @@
 {
   "name": "tracker",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Track user clicks to links",
   "main": "app.js",
+  "private": true,
   "dependencies": {
     "express": "~4.4.4",
     "morgan": "~1.1.1",
@@ -30,5 +31,8 @@
     "api"
   ],
   "author": "alexander.beletsky@gmail.com",
+  "engines": {
+    "node": "0.10.x"
+  },
   "license": "MIT"
 }
