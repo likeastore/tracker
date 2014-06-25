@@ -7,13 +7,17 @@ var config = require('./config');
 var logger = require('./source/utils/logger');
 
 var app = express();
+var env = process.env.NODE_ENV || 'development';
+var port = process.env.PORT || 3006;
 
-app.use(morgan('dev'));
+if (env === 'development' || env === 'production') {
+	app.use(morgan());
+}
+
 app.use(bodyParser.json());
 app.use(methodOverride());
 
-var env = process.env.NODE_ENV || 'development';
-var port = process.env.PORT || 3006;
+require('./source/tracker')(app);
 
 app.listen(port, function () {
 	logger.info('Likeastore tracker listening on port ' + port + ' ' + env + ' mongo: ' + config.connection);
