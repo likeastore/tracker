@@ -17,6 +17,7 @@ if (env === 'development' || env === 'production') {
 app.use(bodyParser.json());
 app.use(methodOverride());
 
+require('./source/health')(app);
 require('./source/tracker')(app);
 
 app.listen(port, function () {
