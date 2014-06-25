@@ -28,6 +28,8 @@ function tracker(app) {
 				logger.error({message: 'link save operation failed', err: err});
 			}
 
+			logger.info('/track user: ' + link.user + ' url: ' + link.url);
+
 			res.redirect(link.url);
 		});
 	});
