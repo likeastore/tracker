@@ -6,9 +6,6 @@ var db = require('./db')(config);
 var logger = require('./utils/logger');
 
 function tracker(app) {
-
-	var track = app.route('/api/track');
-
 	var validate = function (req, res, next) {
 		if (!req.query.d) {
 			return res.send(200);
@@ -17,12 +14,13 @@ function tracker(app) {
 		next();
 	};
 
-	track.get(validate, function (req, res, next) {
+	app.route('/api/track').get(validate, function (req, res, next) {
 		var json = new Buffer(req.query.d, 'base64').toString();
 		var link = JSON.parse(json);
 
 		link = _.extend(link, {date: moment().utc().toDate()});
 
+		// TODO: switch to seismo instead of local db..
 		db.links.save(link, function (err) {
 			if (err) {
 				logger.error({message: 'link save operation failed', err: err});

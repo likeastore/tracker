@@ -19,6 +19,7 @@ app.use(methodOverride());
 
 require('./source/health')(app);
 require('./source/tracker')(app);
+require('./source/reporter')(app);
 
 app.listen(port, function () {
 	logger.info('Likeastore tracker listening on port ' + port + ' ' + env + ' mongo: ' + config.connection);
