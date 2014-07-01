@@ -2,8 +2,8 @@ var _ = require('underscore');
 var moment = require('moment');
 
 var config = require('../config');
-var db = require('./db')(config);
 var logger = require('./utils/logger');
+var seismo = require('seismo-client')(config.seismo.app, config.seismo.options);
 
 function tracker(app) {
 	var validate = function (req, res, next) {
@@ -20,8 +20,7 @@ function tracker(app) {
 
 		link = _.extend(link, {date: moment().utc().toDate()});
 
-		// TODO: switch to seismo instead of local db..
-		db.links.save(link, function (err) {
+		seismo('search results clicked', link, function (err) {
 			if (err) {
 				logger.error({message: 'link save operation failed', err: err});
 			}
