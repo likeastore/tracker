@@ -11,23 +11,33 @@ function tracker(app) {
 			return res.send(200);
 		}
 
+		var json = new Buffer(req.query.d, 'base64').toString();
+		var data = JSON.parse(json);
+
+		var action = data.action;
+
+		if (!action) {
+			logger.error('received tracking event without action');
+			return res.send(200);
+		}
+
+		req.track = data;
+
 		next();
 	};
 
 	app.route('/api/track').get(validate, function (req, res, next) {
-		var json = new Buffer(req.query.d, 'base64').toString();
-		var data = JSON.parse(json);
+		var data = _.extend(req.track, {date: moment().utc().toDate()});
 
-		data = _.extend(data, {date: moment().utc().toDate()});
-
-		seismo('content engaged', data, function (err) {
+		seismo(req.track.action, data, function (err) {
 			if (err) {
 				logger.error({message: 'data save operation failed', err: err});
+			} else {
+				logger.info('/track user: ' + req.track.user + ' url: ' + req.track.url);
 			}
 
-			logger.info('/track user: ' + data.user + ' url: ' + data.url);
 
-			res.redirect(data.url);
+			res.redirect(req.track.url);
 		});
 	});
 }
