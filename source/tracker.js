@@ -16,18 +16,18 @@ function tracker(app) {
 
 	app.route('/api/track').get(validate, function (req, res, next) {
 		var json = new Buffer(req.query.d, 'base64').toString();
-		var link = JSON.parse(json);
+		var data = JSON.parse(json);
 
-		link = _.extend(link, {date: moment().utc().toDate()});
+		data = _.extend(data, {date: moment().utc().toDate()});
 
-		seismo('search results clicked', link, function (err) {
+		seismo('content engaged', data, function (err) {
 			if (err) {
-				logger.error({message: 'link save operation failed', err: err});
+				logger.error({message: 'data save operation failed', err: err});
 			}
 
-			logger.info('/track user: ' + link.user + ' url: ' + link.url);
+			logger.info('/track user: ' + data.user + ' url: ' + data.url);
 
-			res.redirect(link.url);
+			res.redirect(data.url);
 		});
 	});
 }
