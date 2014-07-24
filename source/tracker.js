@@ -35,10 +35,9 @@ function tracker(app) {
 			} else {
 				logger.info('/track user: ' + req.track.user + ' url: ' + req.track.url);
 			}
-
-
-			res.redirect(req.track.url);
 		});
+
+		res.redirect(req.track.url);
 	});
 }
 
